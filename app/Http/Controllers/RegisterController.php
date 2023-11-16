@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
-// use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+
 
 class RegisterController extends Controller
 {
@@ -24,7 +23,7 @@ class RegisterController extends Controller
 
         if ($validator->fails()) {
             // return $this->sendError('Validation Error.', $validator->errors());
-            return response()->json(['msg' => 'validation error', 'data' => $validator->errors()]);
+            return response()->json(['msg' => 'validation error', 'data' => $validator->errors()], Response::HTTP_BAD_REQUEST);
         }
 
         $input = $request->all();
@@ -62,7 +61,7 @@ class RegisterController extends Controller
             return response()->json([
                 'msg' => 'Login Failed. Try again!!!',
 
-            ]);
+            ],Response::HTTP_BAD_REQUEST);
         }
     }
 }
